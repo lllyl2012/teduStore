@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.OrderMapper">
+	<insert id="add" parameterType="cn.tedu.store.entity.Order"  useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			t_order
+		VALUES(
+			null,
+			#{userId},
+			#{recvPerson},
+			#{recvPhone},
+			#{recvDistrict},
+			#{recvAddr},
+			#{recvAddrCode},
+			#{price},
+			#{status},
+			now(),
+			#{goodsCount}
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.DictMapper">
+	<select id="getProvinceList" resultType="cn.tedu.store.entity.dict.Province">
+		SELECT
+			id,
+			province_code provinceCode,
+			province_name provinceName
+		FROM
+			t_dict_provinces
+	</select>
+	<select id="getCityList" resultType="cn.tedu.store.entity.dict.City">
+		SELECT 
+			id,
+			city_code AS cityCode,
+			city_name cityName
+		FROM
+		 t_dict_cities
+		WHERE
+			province_code = #{provinceCode}
+	</select>
+	<select id="getAreaList" resultType="cn.tedu.store.entity.dict.Area">
+		SELECT
+			id,
+			area_code areaCode,
+			area_name areaName
+		FROM
+		 t_dict_areas
+		WHERE
+			city_code = #{cityCode}
+	</select>
+	<select id="getProNameByProCode" resultType="java.lang.String" parameterType="cn.tedu.store.entity.dict.Province">
+		SELECT 
+			province_name provinceName
+		FROM
+			t_dict_provinces	
+		WHERE
+			province_code = #{provinceCode}
+	</select>
+	<select id="getCtiyNameByCityCode" parameterType="cn.tedu.store.entity.dict.City" resultType="java.lang.String">
+		SELECT 
+			city_name cityName
+		FROM
+		 t_dict_cities
+		WHERE
+			city_code = #{cityCode}
+	</select>
+	<select id="getAreaNameByAreaCode" parameterType="cn.tedu.store.entity.dict.Area" resultType="java.lang.String">
+		SELECT
+			area_name areaName
+		FROM
+		 t_dict_areas
+		WHERE
+			area_code = #{areaCode}
+	</select>
+</mapper>
