@@ -16,8 +16,8 @@
 <!-- 页面顶部-->
 <header id="top">
     <div class="top">
-        <img src="../images/header/logo.png" alt=""/>
-        <span>欢迎登录</span>
+        <a href="${base}/user/downloadExcel.do"><img src="../images/header/logo.png" alt=""/></a>
+        <a href="${base}/user/downloadImage.do"><span>欢迎登录</span></a>
     </div>
 </header>
 <div id="container">
@@ -35,6 +35,10 @@
                 <div class="text">
                     <input type="password" id="password" placeholder="请输入您的密码" name="lwd" required minlength="6" maxlength="15">
                     <span><img src="../images/login/mm.png"></span>
+                </div>
+                <div class="text">
+                    <input type="text" id="code" placeholder="请输入您的验证码"  name="code" required minlength="4" maxlength="4">
+                    <span><img id="code_image" style="top:-40px;right:-163px;" src="${base}/user/code.do"></span>
                 </div>
                 <div class="chose">
                     <input type="checkbox" class="checkbox" id="ck_rmbUser" value="0">自动登录
@@ -117,6 +121,36 @@
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script src="../jquery/jquery.cookie.js"></script>
 <script>
+			$("#code_image").click(function(){
+				var img = this
+				console.log(img);
+				//添加请求参数的目的避免浏览器的缓存
+				img.src = "code.do?"+new Date();
+			});
+			$("#code").blur(function(){
+					  var data = $("#code").val();
+					  console.log(data);
+					  if(data==null || data == ''){
+					    	$("#showResult").text("正在查询")	;
+					    	$("#showResult").css("color","red")	;
+					    	return false;
+					    }
+					  $.ajax({
+				    	   "type":"post",
+				    	   "url":"checkCode.do",
+				    	   "data":"code="+data,
+				    	   "datatype":"json",
+				    	   "success":function(json){
+				    		   if(json.state == 1){
+				    			   $("#showResult").text(json.message);
+				    		   }else{
+				    			   $("#showResult").text(json.message);
+				    		          }
+				    	          }
+				       });
+			})
+		
+		
     $("#username").blur(function(){
         var data = $("#username").val();
         if (data == null || data == "") {

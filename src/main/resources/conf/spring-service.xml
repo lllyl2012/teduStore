@@ -19,21 +19,10 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
-<!--     <mvc:resources location="/resources/" mapping="/resources/**"/> -->
-    
     <context:component-scan base-package="cn.tedu.store.service"></context:component-scan>
-    <mvc:annotation-driven>
-   		<mvc:message-converters>
-   			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-   				<property name="supportedMediaTypes" >
-   					<list>
-   						<value>text/html;charset=utf-8</value>
-   						<value>application/json;charset=utf-8</value>
-   						<value>*/*;charset=utf-8</value>
-   					</list>
-   				</property>
-   			</bean>
-   		</mvc:message-converters>
-   	</mvc:annotation-driven>
-
+    <mvc:annotation-driven> </mvc:annotation-driven>
+    <!-- 使用表达式#{config.salt}可以读取值 -->
+    <util:properties id="config">
+    	<prop key="salt">今天你吃了吗</prop>
+    </util:properties>
 </beans>
